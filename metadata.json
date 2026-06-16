@@ -1,0 +1,6 @@
+{
+  "name": "Video Analyzer",
+  "description": "An interactive video player that helps you generate a detailed step-by-step guide for n8n workflows.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

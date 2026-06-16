@@ -1,0 +1,779 @@
+
+
+
+@charset "UTF-8";
+.light {
+  --background: #F3F3F6;
+  --text: #1A1C1E;
+  --border: #C6C6C9;
+  --highlight: #fff;
+  --track: #86878A;
+  --link: #2872E3;
+  --mid: #757575;
+}
+
+.dark {
+  --background: #1A1C1E;
+  --text: #fff;
+  --border: #37393C;
+  --highlight: #000;
+  --track: #37393C;
+  --link: #87A9FF;
+  --mid: #757575;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-variant-ligatures: none;
+}
+
+:root {
+  --track-fill: #fff;
+  font-family: "Space Mono", monospace;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+li {
+  list-style: none;
+}
+
+input, textarea {
+  font-family: "Space Mono", monospace;
+  background: none;
+  color: var(--text);
+  border: none;
+  outline: none;
+  font-size: 14px;
+  resize: none;
+  user-select: text;
+}
+input::placeholder, textarea::placeholder {
+  user-select: none;
+}
+
+textarea {
+  width: 100%;
+  background: var(--highlight);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+textarea.active {
+  border-color: var(--text);
+}
+
+[role=button] {
+  cursor: pointer;
+}
+
+button {
+  font-family: "Space Mono", monospace;
+  background: none;
+  color: var(--text);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+button:focus {
+  outline: none;
+}
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button .icon {
+  display: block;
+}
+
+.button {
+  padding: 8px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.button.inactive {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.icon {
+  font-family: "Material Symbols Outlined";
+  font-weight: 300;
+  line-height: 1;
+}
+
+main {
+  max-width: 1200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--text);
+}
+
+.top {
+  display: flex;
+  min-height: 50vh;
+  border-bottom: 1px solid var(--border);
+}
+
+.tools {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+  flex-shrink: 0;
+  padding: 20px 15px;
+  border-right: 1px solid var(--border);
+}
+.sidebar h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.sidebar p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.mode-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mode-button {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-align: left;
+  transition: background-color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mode-button:hover {
+  background-color: var(--border);
+}
+
+.mode-button.active {
+  background-color: var(--highlight);
+  border-color: var(--text);
+  font-weight: 700;
+}
+
+.mode-button .emoji {
+  font-size: 20px;
+}
+
+.custom-context-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-context-input {
+  width: 100%;
+  background: var(--highlight);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 10px;
+  color: var(--text);
+  resize: vertical;
+}
+
+.custom-context-input::placeholder {
+  color: var(--mid);
+  opacity: 0.8;
+}
+
+.generateButton {
+  padding: 12px 20px;
+  background: var(--highlight);
+  width: 100%;
+  border: 1px solid var(--border);
+}
+
+.output {
+  flex: 1;
+  padding: 20px 15px;
+  overflow: auto;
+  position: relative;
+}
+.output:hover .sentence {
+  opacity: 0.5;
+}
+.output time {
+  color: var(--link);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: inherit;
+  text-decoration: underline;
+}
+.output .sentence {
+  font-size: 18px;
+  line-height: 1.8;
+  display: inline;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.output .sentence:hover {
+  opacity: 1;
+}
+.output .sentence time {
+  margin-right: 8px;
+}
+.output ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.output ul button {
+  font-size: 15px;
+  display: flex;
+  gap: 15px;
+  text-align: left;
+  padding: 10px 15px;
+  border-radius: 6px;
+  width: 100%;
+}
+.output ul button:hover {
+  background: var(--border);
+}
+
+.output-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.output-header .copy-button {
+  background: var(--highlight);
+  border: 1px solid var(--border);
+}
+.output-header .edit-button {
+  background: var(--background);
+  border: 1px solid var(--border);
+  color: var(--link);
+}
+
+.guide-header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.guide-header p {
+  line-height: 1.6;
+}
+
+.guide-summary, .guide-dependencies {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-summary h2, .guide-dependencies h2, .output > h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.guide-summary p {
+  line-height: 1.6;
+}
+
+.guide-dependencies ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.guide-dependencies li {
+  line-height: 1.5;
+}
+
+.guide-dependencies li strong {
+  font-weight: 700;
+}
+
+.guide-dependencies li p {
+  margin-top: 5px;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+  font-size: 14px;
+}
+
+.guideList {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.guideStep {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.guideStep:last-child {
+  border-bottom: none;
+}
+.guideStep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.guideStep-header h3 {
+  font-size: 16px;
+}
+.guideStep .text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.guideStep-screenshot {
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.guideStep-screenshot img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.guide-transcript {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.guide-transcript h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.guide-transcript pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.6;
+}
+
+.loading span {
+  display: inline-block;
+  animation: loading steps(4, jump-none) 777ms infinite;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+@keyframes loading {
+  to {
+    width: 30px;
+  }
+}
+
+video {
+  max-height: 50vh;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.videoPlayer {
+  flex: 1;
+  background: #000;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0;
+  position: relative;
+  user-select: none;
+  border-left: 1px solid var(--border);
+}
+.videoPlayer:has(.timecodeMarker:hover) .videoCaption {
+  opacity: 0;
+}
+.videoPlayer > div:first-child {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.emptyVideo {
+  height: 50vh;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.emptyVideo p {
+  max-width: 500px;
+  text-align: center;
+}
+.emptyVideo p span {
+  display: inline-block;
+  rotate: -45deg;
+}
+
+.videoCaption {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 80px;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  max-width: 720px;
+  font-size: 15px;
+  margin-inline: 30px;
+  left: 50%;
+  translate: -50% 0;
+  width: -webkit-fill-available;
+  border-radius: 5px;
+  transition: opacity 0.2s;
+}
+
+.videoControls {
+  font-size: 12px;
+  position: relative;
+  background: var(--background);
+}
+.videoControls:hover .videoScrubber, .videoControls:hover .timecodeMarkerTick {
+  scale: 1 2.3;
+}
+
+.videoScrubber {
+  height: 5px;
+  transform-origin: bottom;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.videoScrubber input {
+  position: relative;
+  top: -8px;
+  height: 5px;
+  appearance: none;
+  width: 100%;
+  background-image: linear-gradient(to right, var(--track-fill) 0%, var(--track-fill) var(--pct), var(--track) var(--pct), var(--track) 100%);
+}
+.videoScrubber input::-webkit-slider-thumb {
+  opacity: 0;
+}
+
+.videoTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  font-size: 15px;
+  border-top: 1px solid var(--border);
+}
+.videoTime button {
+  font-size: 20px;
+}
+
+.timecodeList {
+  overflow: auto;
+  padding: 10px 20px;
+}
+.timecodeList td {
+  padding: 10px 5px;
+}
+.timecodeList button {
+  color: var(--link);
+}
+.timecodeList button:hover {
+  color: var(--link);
+}
+
+.timecodeMarkers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.timecodeMarker {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  background: rgba(0, 0, 0, 0.01);
+  translate: -4px 0;
+}
+.timecodeMarker:hover .timecodeMarkerLabel {
+  opacity: 1;
+}
+
+.timecodeMarkerTick {
+  height: 5px;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: bottom;
+  transition: all 0.2s;
+  background: rgba(0, 0, 0, 0.01);
+  overflow: hidden;
+}
+.timecodeMarkerTick > div {
+  width: 3px;
+  height: 100%;
+  background: var(--link);
+  translate: 3px 0;
+}
+
+.timecodeMarkerLabel {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11px;
+  transition: opacity 0.1s;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  translate: 0 calc(-100% - 15px);
+  z-index: 99;
+  padding: 8px;
+  border-radius: 5px;
+  width: max-content;
+  max-width: 200px;
+  color: var(--mid);
+}
+.timecodeMarkerLabel.right {
+  right: 0;
+}
+.timecodeMarkerLabel p {
+  color: var(--text);
+  font-size: 13px;
+}
+
+/* -- Capture Indicator -- */
+.capture-indicator {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+  pointer-events: none;
+  animation: pulse 1.5s infinite;
+}
+
+.capture-indicator .icon {
+  font-size: 48px;
+}
+
+.capture-indicator span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* -- Edit Mode Styles -- */
+.editable-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--highlight);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+
+.editable-input.title {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 8px;
+  margin-bottom: 10px;
+}
+
+.editable-input:focus {
+  outline: none;
+  border-color: var(--link);
+}
+
+.editable-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.editable-textarea.transcript {
+  min-height: 200px;
+}
+
+.dependency-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dependency-edit-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dependency-edit-header input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.dependency-edit-header label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* -- Empty Output Placeholder -- */
+.empty-output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--mid);
+  padding: 20px;
+  user-select: none;
+}
+
+.empty-output .icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: var(--border);
+}
+
+.empty-output h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.empty-output p {
+  font-size: 14px;
+  max-width: 350px;
+  line-height: 1.5;
+}
+
+/* -- Responsive Styles & Transitions -- */
+
+@media (max-width: 800px) {
+  .top {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .videoPlayer {
+    border-left: none;
+    min-height: 250px;
+  }
+
+  .videoPlayer > div:first-child {
+    aspect-ratio: 16 / 9;
+  }
+
+  video {
+    max-height: none;
+  }
+
+  .videoCaption {
+    bottom: 65px; /* Adjust for smaller controls */
+    font-size: 14px;
+    margin-inline: 15px;
+  }
+
+  .videoTime {
+    padding: 10px 15px;
+  }
+}
+
+.loading,
+.guide-container {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
